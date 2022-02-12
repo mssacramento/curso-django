@@ -1,10 +1,10 @@
-name: Python application
+name: ci
 
 on:
   pull_request:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
