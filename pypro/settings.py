@@ -32,6 +32,7 @@ DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
+AUTH_USER_MODEL = 'base.User'
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'collectfast'
     'django.contrib.staticfiles',
     'pypro.base'
 ]
@@ -117,12 +119,16 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
+#Configuração de ambiente de desenvolvimento
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+
+COLLECTFAST_ENABLED = False
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -139,6 +145,8 @@ if AWS_ACCESS_KEY_ID:
     AWS_PRELOAD_METADATA = True
     AWS_AUTO_CREATE_BUCKET = False  #Não criaremos buckets automaticamente
     AWS_QUERYSTRING_AUTH = True     #Para que possamos gerar URLS assinadas
+
+    COLLECTFAST_ENABLED = True
     AWS_S3_CUSTOM_DOMAIN = None     #Pois iremos utilizar o proprio dominio do s3
     AWS_DEFAULT_ACL = 'private'     #Para que nossos arquivos do s3 não fiquem públicos
     # #CONFIGURAÇÃO DOS ARQUIVOS ESTATICOS
