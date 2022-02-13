@@ -3,8 +3,7 @@ name: ci
 on:
   pull_request:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   build:
@@ -20,7 +19,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: postgres
-        ports: [ '5432:5432' ]
+        #ports: [ '5432:5432' ]
 
     steps:
     - uses: actions/checkout@v2
