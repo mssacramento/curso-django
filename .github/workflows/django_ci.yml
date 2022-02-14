@@ -1,10 +1,9 @@
-name: Python application
+name: ci
 
 on:
   pull_request:
   push:
-    branches:
-      - master
+    branches: [main]
 
 jobs:
   build:
@@ -20,14 +19,14 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: postgres
-        ports: [ '5432:5432' ]
+        #ports: [ '5432:5432' ]
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.10
+    - name: Set up Python 3.9.10
       uses: actions/setup-python@v1
       with:
-        python-version: 3.10
+        python-version: 3.9.10
     - name: Copying configurations
       run: |
         cp contrib/env-sample .env
@@ -46,3 +45,5 @@ jobs:
         CODECOV_TOKEN: "44c9e795-45ee-4634-940f-67311cfdb856"
       run: |
         pipenv run codecov
+
+
