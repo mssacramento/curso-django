@@ -1,4 +1,6 @@
 # curso-django
+Projeto em atualização.
+
 Código desenvolvido durante as aulas referentes ao [Modulo de Django](https://plataforma.dev.pro.br/) 
 
 [![Updates](https://pyup.io/repos/github/mssacramento/curso-django/shield.svg)](https://pyup.io/repos/github/mssacramento/curso-django/)
