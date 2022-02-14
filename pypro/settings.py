@@ -12,11 +12,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from functools import partial
 
-
 from decouple import config, Csv
 from pathlib import Path
 import dj_database_url
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,8 +81,7 @@ default_db_url = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
 parse_database = partial(dj_database_url.parse, conn_max_age=600)
 DATABASES = {
     'default': config('DATABASE_URL', default_db_url, cast=parse_database)
-    }
-
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -119,7 +116,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-#Configuração de ambiente de desenvolvimento
+# Configuração de ambiente de desenvolvimento
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -134,30 +131,30 @@ COLLECTFAST_ENABLED = False
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AWS_ACCESS_KEY_ID=config('AWS_ACCESS_KEY_ID')
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 
-#CONFIGURAÇÃO S3
-#___________________________________________________________________________
+# CONFIGURACAO_S3
+# ___________________________________________________________________________
 if AWS_ACCESS_KEY_ID:
     AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-    AWS_S3_OBJECT_PARAMETERS = {'CacheControl':'max-age=86400', }    #Controle de tempo de cache do S3
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400', }  # Controle de tempo de cache do S3
     AWS_PRELOAD_METADATA = True
-    AWS_AUTO_CREATE_BUCKET = False  #Não criaremos buckets automaticamente
-    AWS_QUERYSTRING_AUTH = True     #Para que possamos gerar URLS assinadas
+    AWS_AUTO_CREATE_BUCKET = False  # Não criaremos buckets automaticamente
+    AWS_QUERYSTRING_AUTH = True  # Para que possamos gerar URLS assinadas
 
     COLLECTFAST_ENABLED = True
-    AWS_S3_CUSTOM_DOMAIN = None     #Pois iremos utilizar o proprio dominio do s3
-    AWS_DEFAULT_ACL = 'private'     #Para que nossos arquivos do s3 não fiquem públicos
+    AWS_S3_CUSTOM_DOMAIN = None  # Pois iremos utilizar o proprio dominio do s3
+    AWS_DEFAULT_ACL = 'private'  # Para que nossos arquivos do s3 não fiquem públicos
     # #CONFIGURAÇÃO DOS ARQUIVOS ESTATICOS
-    #__________________________________________________________________________
-    STATICFILES_STORAGE = 's3_folder_storage.s3.StaticStorage' #Classe da lib que fará a gestão da pasta static
+    # __________________________________________________________________________
+    STATICFILES_STORAGE = 's3_folder_storage.s3.StaticStorage'  # Classe da lib que fará a gestão da pasta static
     STATIC_S3_PATH = 'static'
     STATIC_ROOT = f'/{STATIC_S3_PATH}/'
     STATIC_URL = f'//s3.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}/{STATIC_S3_PATH}/'
     ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
     # #CONFIGURAÇÃO DOS UPLOADS
-    #__________________________________________________________________________
+    # __________________________________________________________________________
     DEFAULT_FILE_STORAGE = 's3_folder_storage.s3.StaticStorage'
     DEFAULT_S3_PATH = 'media'
     MEDIA_ROOT = f'/{STATIC_S3_PATH}/'

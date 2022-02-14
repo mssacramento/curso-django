@@ -6,7 +6,6 @@ from django.utils import timezone
 from django.core.mail import send_mail
 
 
-
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -22,7 +21,6 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
     def create_user(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_superuser', False)
         return self._create_user(email, password, **extra_fields)
@@ -37,7 +35,6 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must have is_staff=True.')
 
         return self._create_user(email, password, **extra_fields)
-
 
 
 class User(AbstractBaseUser, PermissionsMixin):
