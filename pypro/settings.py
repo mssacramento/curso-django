@@ -135,14 +135,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 COLLECTFAST_ENABLED = False
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 
-# CONFIGURACAO_S3
+# CONFIGURACAO_S3 AWS
 # ___________________________________________________________________________
 if AWS_ACCESS_KEY_ID:
     AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
@@ -151,10 +148,13 @@ if AWS_ACCESS_KEY_ID:
     AWS_PRELOAD_METADATA = True
     AWS_AUTO_CREATE_BUCKET = False  # Não criaremos buckets automaticamente
     AWS_QUERYSTRING_AUTH = True  # Para que possamos gerar URLS assinadas
-
-    COLLECTFAST_ENABLED = True
     AWS_S3_CUSTOM_DOMAIN = None  # Pois iremos utilizar o proprio dominio do s3
     AWS_DEFAULT_ACL = 'private'  # Para que nossos arquivos do s3 não fiquem públicos
+
+    COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
+    COLLECTFAST_ENABLED = True
+
+
     # #CONFIGURAÇÃO DOS ARQUIVOS ESTATICOS
     # __________________________________________________________________________
     STATICFILES_STORAGE = 's3_folder_storage.s3.StaticStorage'  # Classe da lib que fará a gestão da pasta static
