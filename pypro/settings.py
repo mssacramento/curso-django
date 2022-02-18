@@ -154,7 +154,6 @@ if AWS_ACCESS_KEY_ID:
     COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
     COLLECTFAST_ENABLED = True
 
-
     # #CONFIGURAÇÃO DOS ARQUIVOS ESTATICOS
     # __________________________________________________________________________
     STATICFILES_STORAGE = 's3_folder_storage.s3.StaticStorage'  # Classe da lib que fará a gestão da pasta static
