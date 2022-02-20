@@ -14,8 +14,12 @@ def test_status_code(resp):
 
 
 def test_title(resp):
-    assert_contains(resp, '<title>Python MSS</title>')
+    assert_contains(resp, '<title>Python MSS - Home</title>')
 
 
 def test_home_link(resp):
     assert_contains(resp, f'href="{reverse("base:home")}">Python Pro Mss</a>')
+
+
+def test_email_link(resp):
+    assert_contains(resp, 'href="mailto:nova.aguiaimperial@gmail.com"')
