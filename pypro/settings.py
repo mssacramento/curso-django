@@ -35,7 +35,16 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 AUTH_USER_MODEL = 'base.User'
 # Application definition
 
+LOGIN_URL = '/contas/login/'
+LOGIN_REDIRECT_URL = '/modulos/'
+LOGOUT_REDIRECT_URL = '/'
+
+
 INSTALLED_APPS = [
+    'pypro.base',
+    'pypro.turmas',
+    'pypro.aperitivos',
+    'pypro.modulos',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,8 +52,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'collectfast',
     'django.contrib.staticfiles',
-    'pypro.base',
-    'pypro.aperitivos',
+    'ordered_model',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -70,12 +79,23 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'pypro.modulos.context_processors.listar_modulos',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'pypro.wsgi.application'
+
+
+# configuração de envio de Email
+EMAIL_BACKEND = config('EMAIL_BACKEND')
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+
 
 # configuração djangotoolbar
 INTERNAL_IPS = config('INTERNAL_IPS', cast=Csv(), default='127.0.0.1')

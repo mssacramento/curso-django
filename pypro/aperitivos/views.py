@@ -1,35 +1,13 @@
-from django.shortcuts import render
-from django.urls import reverse
+from django.shortcuts import get_object_or_404, render
 
-
-class Video:
-    def __init__(self, slug, titulo, youtube_id):
-        self.slug = slug
-        self.titulo = titulo
-        self.youtube_id = youtube_id
-
-
-def get_absolute_url(self):
-    return reverse('aperitivos:video', args=(self.slug,))
-
-
-videos = [
-    Video('motivacao', 'Vídeo Aperitivo : Motivação', '3WRbMPA1p1Q'),
-    Video('criando-sala-virtual', 'Passo I : Criando Sala Virtual', 'Lh3oqLMiFus'),
-    Video('adicionando-professor', 'Passo II : Adicionando Professor', 'YLBy5GuyDpk'),
-    Video('criando-forum', 'Passo III : Criando Fórum', 'qMeq0HSnQV4'),
-    Video('criando-topicos', 'Passo IV : Criando Tópicos', 'aFF26rw22Us'),
-    Video('tarefas-testes', 'Passo V : Tarefas e Testes', 'S6RoA19lcCw'),
-    Video('app-classroom', 'Bônus : App Classroom', '3nS73hwupnE'),
-]
-
-videos_dct = {v.slug: v for v in videos}
+from pypro.aperitivos.models import Video
 
 
 def indice(request):
+    videos = Video.objects.order_by('creation').all()
     return render(request, 'aperitivos/indice.html', context={'videos': videos})
 
 
 def video(request, slug):
-    video = videos_dct[slug]
+    video = get_object_or_404(Video, slug=slug)
     return render(request, 'aperitivos/video.html', context={'video': video})
