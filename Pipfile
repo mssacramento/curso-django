@@ -16,11 +16,16 @@ collectfast = "*"
 django-debug-toolbar = "*"
 sdk = "*"
 sentry-sdk = "*"
+model-bakery = "*"
+django-ordered-model = "*"
+ipython = "*"
+django-extensions = "*"
 
 [dev-packages]
 flake8 = "*"
 pytest-cov = "*"
 codecov = "*"
+model-mommy = "*"
 
 [requires]
 python_version = "3.9.10"
